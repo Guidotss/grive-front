@@ -8,6 +8,7 @@ import {
 } from "@radix-ui/react-icons";
 import { Button } from "./button";
 import { CloudIcon, FolderIcon, StorageIcon } from "./icons";
+import { LogoutButton } from "../sidebar";
 
 export const SideBar = () => {
   return (
@@ -111,12 +112,7 @@ export const SideBar = () => {
           </div>
         </div>
         <div className="flex items-center justify-center border-t-[1px] border-sidebar p-3">
-          <Button
-            className="w-full rounded-sm flex items-center justify-center"
-            variant="default"
-          >
-            <span className="">Sign Out</span>
-          </Button>
+          <LogoutButton/>
         </div>
       </div>
     </aside>

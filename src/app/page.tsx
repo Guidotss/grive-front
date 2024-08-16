@@ -1,11 +1,7 @@
 import {
   CodeSandboxLogoIcon,
-  FileIcon,
-  GridIcon,
-  ImageIcon,
   MixIcon,
   PlusIcon,
-  VideoIcon,
 } from "@radix-ui/react-icons";
 import { SideBar, NavBar, Button, Progress } from "@/components";
 import { OVER_VIEW_STORAGE } from "@/constants";
