@@ -6,6 +6,9 @@ import * as Yup from "yup";
 import { Button, GoogleIcon, Input, MicrosoftIcon } from "../ui";
 import { type RegisterForm as TRegisterForm } from "@/types";
 import "animate.css";
+import { useContext } from "react";
+import { AuthContext } from "@/context";
+import { useRouter } from "next/navigation";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -16,15 +19,19 @@ const validationSchema = Yup.object().shape({
 
 export const RegisterForm = () => {
   const {
-    register,
+    register: rhfRegister,
     handleSubmit,
     formState: { errors },
   } = useForm<TRegisterForm>({
     resolver: yupResolver(validationSchema),
   });
+  const { register } = useContext(AuthContext);
+  const router = useRouter();
 
-  const onSubmit = (data: TRegisterForm) => {
-    console.log(data);
+  const onSubmit = async (data: TRegisterForm) => {
+    const ok = await register(data);
+    if (!ok) return;
+    router.push("/");
   };
 
   return (
@@ -38,7 +45,7 @@ export const RegisterForm = () => {
       <div className="w-3/4 flex gap-x-5">
         <Input
           type="text"
-          {...register("name")}
+          {...rhfRegister("name")}
           placeholder="John"
           className="border-[1px] border-[#2d2a2a] bg-[#383838] rounded-lg w-3/4 shadow-md mb-1"
         />
@@ -48,7 +55,7 @@ export const RegisterForm = () => {
 
         <Input
           type="text"
-          {...register("lastName")}
+          {...rhfRegister("lastName")}
           placeholder="Doe"
           className="border-[1px] border-[#2d2a2a] bg-[#383838] rounded-lg w-3/4 shadow-md mb-1"
         />
@@ -61,7 +68,7 @@ export const RegisterForm = () => {
       <div className="w-full flex flex-col">
         <Input
           type="email"
-          {...register("email")}
+          {...rhfRegister("email")}
           placeholder="default@email.com"
           className="border-[1px] border-[#2d2a2a] bg-[#383838] rounded-lg w-3/4 shadow-md mb-1"
         />
@@ -72,7 +79,7 @@ export const RegisterForm = () => {
 
       <Input
         type="password"
-        {...register("password")}
+        {...rhfRegister("password")}
         placeholder="********"
         className="border-[1px] border-[#2d2a2a] bg-[#383838] rounded-lg w-3/4 shadow-md mb-1"
       />

@@ -6,6 +6,9 @@ import * as Yup from "yup";
 import { Button, GoogleIcon, Input, MicrosoftIcon } from "../ui";
 import { type LoginForm as TLoginForm } from "@/types";
 import "animate.css";
+import { useContext } from "react";
+import { AuthContext } from "@/context";
+import { useRouter } from "next/navigation";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -20,9 +23,13 @@ export const LoginForm = () => {
   } = useForm<TLoginForm>({
     resolver: yupResolver(validationSchema),
   });
+  const { login } = useContext(AuthContext);
+  const router = useRouter();
 
-  const onSubmit = (data: TLoginForm) => {
-    console.log(data);
+  const onSubmit = async (data: TLoginForm) => {
+    const ok = await login(data);
+    if (!ok) return;
+    router.push("/");
   };
 
   return (
