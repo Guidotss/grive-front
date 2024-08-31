@@ -36,26 +36,19 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
-      httpAdapter
-        .get<AuthResponse>(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`
-        )
-        .then((response) => {
-          if (response.ok) {
-            authorize(response);
-          } else {
-            Cookies.remove("token");
-          }
-        });
+      httpAdapter.get<AuthResponse>("auth/refresh-token").then((response) => {
+        if (response.ok) {
+          authorize(response);
+        } else {
+          Cookies.remove("token");
+        }
+      });
     }
   }, []);
 
   const login = async (user: LoginDto): Promise<boolean> => {
     try {
-      const response = await httpAdapter.post<AuthResponse>(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-        user
-      );
+      const response = await httpAdapter.post<AuthResponse>("auth/login", user);
       if (response.ok) {
         authorize(response);
         return true;
@@ -71,7 +64,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const register = async (user: RegisterDto): Promise<boolean> => {
     try {
       const response = await httpAdapter.post<AuthResponse>(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+        "auth/register",
         user
       );
       if (response.ok) {

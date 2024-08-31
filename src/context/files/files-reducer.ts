@@ -1,6 +1,17 @@
+import { File, FilesData } from "@/types";
 import { FilesState } from ".";
 
-type FilesActionType = { type: "[FILES] - Fetch Files" };
+type FilesActionType =
+  | {
+      type: "[FILES] - Fetch Files";
+      payload: FilesData;
+    }
+  | {
+      type: "[FILES] - start loading";
+    }
+  | {
+      type: "[FILES] - stop loading";
+    };
 
 export const filesReducer = (
   state: FilesState,
@@ -10,7 +21,17 @@ export const filesReducer = (
     case "[FILES] - Fetch Files":
       return {
         ...state,
+        files: action.payload,
+      };
+    case "[FILES] - start loading":
+      return {
+        ...state,
         loading: true,
+      };
+    case "[FILES] - stop loading":
+      return {
+        ...state,
+        loading: false,
       };
     default:
       return state;

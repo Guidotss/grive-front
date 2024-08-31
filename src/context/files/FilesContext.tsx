@@ -1,8 +1,9 @@
 "use client";
+import { FilesData } from "@/types";
 import { createContext } from "react";
 
 interface FilesContextProps {
-  files: any;
+  files: FilesData;
   loading: boolean;
 }
 
