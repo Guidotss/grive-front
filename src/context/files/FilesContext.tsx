@@ -3,7 +3,7 @@ import { FilesData } from "@/types";
 import { createContext } from "react";
 
 interface FilesContextProps {
-  files: FilesData;
+  filesData: FilesData | null;
   loading: boolean;
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useReducer, type FC } from "react";
 import { FilesContext, filesReducer } from ".";
 import { HttpAdapter } from "@/config";
-import { GetFilesResponse } from "@/types";
+import { FilesData, GetFilesResponse } from "@/types";
 import { useToast } from "@/hooks";
 import { ToastAction } from "@radix-ui/react-toast";
 
@@ -10,12 +10,12 @@ interface FilesProviderProps {
 }
 
 export interface FilesState {
-  files: any;
+  filesData: FilesData | null;
   loading: boolean;
 }
-
+ 
 const FILES_INITIAL_STATE: FilesState = {
-  files: [],
+  filesData: null,
   loading: false,
 };
 

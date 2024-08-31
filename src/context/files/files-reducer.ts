@@ -21,7 +21,7 @@ export const filesReducer = (
     case "[FILES] - Fetch Files":
       return {
         ...state,
-        files: action.payload,
+        filesData: action.payload,
       };
     case "[FILES] - start loading":
       return {

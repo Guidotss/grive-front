@@ -1,16 +1,19 @@
+import { CodeSandboxLogoIcon, MixIcon, PlusIcon } from "@radix-ui/react-icons";
 import {
-  CodeSandboxLogoIcon,
-  MixIcon,
-  PlusIcon,
-} from "@radix-ui/react-icons";
-import { SideBar, NavBar, Button, Progress } from "@/components";
+  SideBar,
+  NavBar,
+  Button,
+  Progress,
+  OverViewStorageList,
+  FilesGrid,
+} from "@/components";
 import { OVER_VIEW_STORAGE } from "@/constants";
 
 export default function Home() {
   return (
     <main className="flex justify-between">
       <SideBar />
-      <section className="flex-1">
+      <section className="justify-end items-end overflow-y-auto max-h-[100vh]">
         <NavBar />
         <section className="p-10 flex items-center justify-between">
           <div className="flex items-center">
@@ -31,31 +34,8 @@ export default function Home() {
             </Button>
           </div>
         </section>
-
-        <section className="p-10">
-          <h5 className="font-light text-gray-300 mb-2">Overview Storage</h5>
-          <div
-            className="grid grid-cols-4 gap-x-10"
-            style={{ height: "calc(100vh - 113px)" }}
-          >
-            {OVER_VIEW_STORAGE.map((item) => (
-              <div key={item.id} className="col-span-1">
-                <div className="flex flex-col gap-y-2 bg-[#383838] p-5 rounded-lg min-h-28">
-                  <div className=" bg-[#383838] flex gap-x-5">
-                    {item.icon}
-                    <div>
-                      <h4 className="text-lg font-light">{item.title}</h4>
-                      <p className="text-gray-400 text-sm mt-1">
-                        {item.items} items
-                      </p>
-                    </div>
-                  </div>
-                  <Progress value={item.progress} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <OverViewStorageList />
+        <FilesGrid />
       </section>
     </main>
   );
