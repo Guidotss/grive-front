@@ -8,7 +8,7 @@ import type {
   AuthResponse,
   AuthSuccessResponse,
 } from "@/types";
-import { HttpAdapter } from "@/config";
+import { eventEmitter, HttpAdapter } from "@/config";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -31,6 +31,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const authorize = (response: AuthSuccessResponse) => {
     dispatch({ type: "[AUTH] - Login", payload: response });
     Cookies.set("token", response.token);
+    eventEmitter.emit("[AUTH] - Login");
   };
 
   useEffect(() => {

@@ -3,11 +3,9 @@ import {
   SideBar,
   NavBar,
   Button,
-  Progress,
   OverViewStorageList,
   FilesGrid,
 } from "@/components";
-import { OVER_VIEW_STORAGE } from "@/constants";
 
 export default function Home() {
   return (

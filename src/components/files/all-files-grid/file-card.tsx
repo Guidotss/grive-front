@@ -1,4 +1,6 @@
 "use client";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -9,10 +11,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, FileIcon, LinkIcon } from "lucide-react";
-import Image from "next/image";
 import { File } from "@/types";
-import { useEffect, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
+import "animate.css";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
@@ -63,10 +64,8 @@ export const FileCard = ({ fileInfo }: { fileInfo: File }) => {
     generatePreview();
   }, [fileInfo]);
 
-  console.log("PREVIEW",previewSrc);
-
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md animate__animated animate__fadeIn">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <FileIcon className="h-5 w-5" />
@@ -83,7 +82,7 @@ export const FileCard = ({ fileInfo }: { fileInfo: File }) => {
               objectFit="cover"
             />
           )}
-          {fileInfo.fileType.category.includes("pdf") && previewSrc && (
+          {fileInfo.fileType.category.includes("document") && previewSrc && (
             <Image
               src={previewSrc}
               alt={fileInfo.title}

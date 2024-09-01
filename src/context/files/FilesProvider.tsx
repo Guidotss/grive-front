@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer, type FC } from "react";
 import { FilesContext, filesReducer } from ".";
-import { HttpAdapter } from "@/config";
+import { eventEmitter, HttpAdapter } from "@/config";
 import { FilesData, GetFilesResponse } from "@/types";
 import { useToast } from "@/hooks";
 import { ToastAction } from "@radix-ui/react-toast";
@@ -13,7 +13,7 @@ export interface FilesState {
   filesData: FilesData | null;
   loading: boolean;
 }
- 
+
 const FILES_INITIAL_STATE: FilesState = {
   filesData: null,
   loading: false,
@@ -51,7 +51,10 @@ export const FilesProvider: FC<FilesProviderProps> = ({ children }) => {
         });
       }
     };
-    fetchFiles();
+    eventEmitter.on("[AUTH] - Login", fetchFiles);
+    return () => {
+      eventEmitter.off("[AUTH] - Login", fetchFiles);
+    };
   }, []);
 
   return (

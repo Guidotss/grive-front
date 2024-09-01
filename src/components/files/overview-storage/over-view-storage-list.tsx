@@ -2,7 +2,6 @@
 
 import { FilesContext } from "@/context";
 import { useContext } from "react";
-import { OVER_VIEW_STORAGE } from "@/constants";
 import { OverViewStorageCard } from "./over-view-storage-card";
 
 export const OverViewStorageList = () => {

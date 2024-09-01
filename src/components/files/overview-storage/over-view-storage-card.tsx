@@ -1,4 +1,5 @@
 import { OVER_VIEW_STORAGE } from "@/constants";
+import "animate.css"; 
 
 interface Props {
   fileType: string;
@@ -7,7 +8,7 @@ interface Props {
 
 export const OverViewStorageCard = ({ fileType, item }: Props) => {
   return (
-    <div className="col-span-1">
+    <div className="col-span-1 animate__animated animate__fadeIn">
       <div className="flex flex-col gap-y-2 bg-[#383838] p-5 rounded-lg min-h-28">
         <div className=" bg-[#383838] flex gap-x-5">
           {OVER_VIEW_STORAGE[fileType].icon}
