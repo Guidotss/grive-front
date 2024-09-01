@@ -1,10 +1,11 @@
-import { CodeSandboxLogoIcon, MixIcon, PlusIcon } from "@radix-ui/react-icons";
+import { CodeSandboxLogoIcon, MixIcon } from "@radix-ui/react-icons";
 import {
   SideBar,
   NavBar,
   Button,
   OverViewStorageList,
   FilesGrid,
+  UploadDialog,
 } from "@/components";
 
 export default function Home() {
@@ -26,10 +27,7 @@ export default function Home() {
               <MixIcon className="w-5 h-5 fill-primary mr-2" />
               <span className="text-lg font-light">Sort</span>
             </Button>
-            <Button className="rounded-sm flex items-center p-5">
-              <PlusIcon className="w-5 h-5 fill-primary mr-2" />
-              <span className="text-lg font-light">Create</span>
-            </Button>
+            <UploadDialog/>
           </div>
         </section>
         <OverViewStorageList />
