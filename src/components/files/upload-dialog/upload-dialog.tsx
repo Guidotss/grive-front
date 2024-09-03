@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,11 +11,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { X, Upload, File as FileIcon } from "lucide-react";
+import { Upload, File as FileIcon } from "lucide-react";
 import Image from "next/image";
 import { PlusIcon } from "@radix-ui/react-icons";
+import { FilesContext } from "@/context";
 
 export function UploadDialog() {
+  const { uploadFile } = useContext(FilesContext);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -24,7 +26,6 @@ export function UploadDialog() {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
-
       if (selectedFile.type.startsWith("image/")) {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -63,11 +64,10 @@ export function UploadDialog() {
     }
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (file) {
-      // Aquí iría la lógica para subir el archivo
-      console.log("Subiendo archivo:", file.name);
-      // Resetear el estado después de la carga
+      await uploadFile(file);
+
       setFile(null);
       setPreview(null);
       if (fileInputRef.current) {

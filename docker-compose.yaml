@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  grive-front: 
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: grive-front
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    volumes:
+      - .:/app
+      - /app/node_modules

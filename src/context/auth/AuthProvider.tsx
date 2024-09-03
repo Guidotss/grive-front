@@ -49,7 +49,13 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (user: LoginDto): Promise<boolean> => {
     try {
-      const response = await httpAdapter.post<AuthResponse>("auth/login", user);
+      const response = await httpAdapter.post<AuthResponse>(
+        "auth/login",
+        user,
+        {
+          "Content-Type": "application/json",
+        }
+      );
       if (response.ok) {
         authorize(response);
         return true;
@@ -66,7 +72,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     try {
       const response = await httpAdapter.post<AuthResponse>(
         "auth/register",
-        user
+        user,
+        {
+          "Content-Type": "application/json",
+        }
       );
       if (response.ok) {
         authorize(response);

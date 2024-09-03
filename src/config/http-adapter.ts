@@ -7,6 +7,7 @@ export class HttpAdapter implements IHttpAdapter {
     headers: Record<string, string> = {},
     timeout = 5000
   ): Promise<T> {
+    console.log(body instanceof FormData);
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
     try {
@@ -14,11 +15,11 @@ export class HttpAdapter implements IHttpAdapter {
         `${process.env.NEXT_PUBLIC_API_URL}/${url}`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
-            "Content-Type": "application/json",
             ...headers,
           },
-          body: JSON.stringify(body),
+          body: body instanceof FormData ? body : JSON.stringify(body),
         }
       );
       return (await response.json()) as T;

@@ -7,6 +7,10 @@ type FilesActionType =
       payload: FilesData;
     }
   | {
+      type: "[FILES] - Upload Files";
+      payload: File;
+    }
+  | {
       type: "[FILES] - start loading";
     }
   | {
@@ -22,6 +26,19 @@ export const filesReducer = (
       return {
         ...state,
         filesData: action.payload,
+      };
+    case "[FILES] - Upload Files":
+      const newFilesQuantity =
+        (state.filesData[
+          `${action.payload.fileType.category}s` as keyof FilesData
+        ] as number) + 1;
+      return {
+        ...state,
+        filesData: {
+          ...state.filesData,
+          [action.payload.fileType.category + "s"]: newFilesQuantity,
+          files: [...state.filesData.files, action.payload],
+        },
       };
     case "[FILES] - start loading":
       return {
